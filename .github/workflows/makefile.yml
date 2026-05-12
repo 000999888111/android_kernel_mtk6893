@@ -54,6 +54,14 @@ jobs:
         rm -rf KernelSU
         curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
 
+
+    - name: 启用内核级基带保护
+      run: |
+        echo "正在启用启用内核级基带保护支持…"
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        curl -sSL https://github.com/cctv18/Baseband-guard/raw/master/setup.sh | bash
+        sed -i '/^config LSM$/,/^help$/{ /^[[:space:]]*default/ { /baseband_guard/! s/selinux/selinux,baseband_guard/ } }' security/Kconfig
+
                
     - name: 设置ccache缓存
       uses: hendrikmuhs/ccache-action@v1.2
