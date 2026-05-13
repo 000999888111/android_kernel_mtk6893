@@ -69,17 +69,6 @@ jobs:
         key: build-kernel-mido-kernel
         max-size: 2G
 
-
-    - name: 生成实际 defconfig
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        rm -rf out/.config
-        make O=out mrprope
-        make O=out savedefconfig
-        echo  
-        echo  
-        make O=out mtk6893_defconfig
-
  
     - name: 开始编译内核
       run: |
